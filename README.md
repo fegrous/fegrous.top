@@ -14,6 +14,6 @@
 - **天气信息**：实时显示当前城市的天气情况。
 - **壁纸设置**：支持自定义壁纸，包括默认壁纸、每日一图、随机风景、随机动漫等。
 
-  ##鸣谢
+## 功能特性
 
-  本项目基于 [imss/home](https://github.com/imsyy/home "参考模板")模板创作，感谢[imss](https://github.com/imsyy "模板作者")的开源贡献。
+本项目基于 [imss/home](https://github.com/imsyy/home "参考模板")模板创作，感谢[imss](https://github.com/imsyy "模板作者")的开源贡献。
