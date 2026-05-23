@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fegrous · 个人主页</title>
+    <meta name="description" content="Fegrous 的个人主页 —— 记录生活，分享代码与热爱。" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💭</text></svg>" />
+    <style>
+        /* ─── Reset & Base ─── */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg: #fafafa;
+            --fg: #1a1a2e;
+            --muted: #64748b;
+            --accent: #6366f1;
+            --accent2: #a78bfa;
+            --card: #ffffff;
+            --border: rgba(0,0,0,.06);
+            --radius: 16px;
+            --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg: #0f0f1a;
+                --fg: #e2e8f0;
+                --muted: #94a3b8;
+                --accent: #818cf8;
+                --accent2: #a78bfa;
+                --card: #1a1a2e;
+                --border: rgba(255,255,255,.06);
+            }
+        }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: var(--font);
+            background: var(--bg);
+            color: var(--fg);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+        a { color: var(--accent); text-decoration: none; transition: .2s; }
+        a:hover { color: var(--accent2); }
+
+        /* ─── Layout ─── */
+        .container { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+
+        /* ─── Hero ─── */
+        .hero {
+            padding: 80px 0 48px;
+            text-align: center;
+        }
+        .hero-avatar {
+            width: 100px; height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            display: inline-flex; align-items: center; justify-content: center;
+            font-size: 2.8rem; color: #fff;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 32px rgba(99,102,241,.3);
+            transition: transform .3s;
+        }
+        .hero-avatar:hover { transform: scale(1.05); }
+        .hero h1 {
+            font-size: 2.2rem; font-weight: 700;
+            letter-spacing: -.02em;
+        }
+        .hero .subtitle {
+            font-size: 1.05rem; color: var(--muted);
+            margin-top: 8px;
+        }
+        .hero .bio {
+            max-width: 480px; margin: 16px auto 0;
+            font-size: .95rem; color: var(--muted);
+        }
+
+        /* ─── Social ─── */
+        .socials {
+            display: flex; justify-content: center; gap: 12px;
+            margin-top: 24px; flex-wrap: wrap;
+        }
+        .socials a {
+            display: inline-flex; align-items: center; gap: 6px;
+            padding: 8px 16px;
+            background: var(--card); border: 1px solid var(--border);
+            border-radius: 100px;
+            font-size: .875rem; font-weight: 500;
+            color: var(--fg); transition: all .25s;
+        }
+        .socials a:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(99,102,241,.15);
+        }
+
+        /* ─── Section ─── */
+        .section { padding: 48px 0; }
+        .section-title {
+            font-size: 1.3rem; font-weight: 600;
+            display: flex; align-items: center; gap: 8px;
+            margin-bottom: 24px;
+        }
+        .section-title::after {
+            content: ''; flex: 1; height: 1px;
+            background: linear-gradient(to right, var(--border), transparent);
+        }
+
+        /* ─── Projects ─── */
+        .projects { display: grid; gap: 16px; }
+        .project-card {
+            background: var(--card); border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+            transition: all .25s;
+        }
+        .project-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(99,102,241,.1);
+        }
+        .project-card h3 { font-size: 1.05rem; font-weight: 600; }
+        .project-card p {
+            font-size: .9rem; color: var(--muted);
+            margin-top: 6px;
+        }
+        .project-card .tags {
+            display: flex; gap: 6px; flex-wrap: wrap;
+            margin-top: 12px;
+        }
+        .project-card .tags span {
+            font-size: .75rem;
+            padding: 2px 10px;
+            border-radius: 100px;
+            background: color-mix(in srgb, var(--accent) 10%, var(--card));
+            color: var(--accent);
+            font-weight: 500;
+        }
+
+        /* ─── Blog / Posts ─── */
+        .posts { display: grid; gap: 12px; }
+        .post-item {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 16px 20px;
+            background: var(--card); border: 1px solid var(--border);
+            border-radius: 12px;
+            transition: all .2s;
+        }
+        .post-item:hover { border-color: var(--accent); }
+        .post-item .title { font-weight: 500; }
+        .post-item .date { font-size: .85rem; color: var(--muted); white-space: nowrap; }
+
+        /* ─── Footer ─── */
+        .footer {
+            text-align: center;
+            padding: 48px 0 32px;
+            color: var(--muted);
+            font-size: .85rem;
+        }
+
+        /* ─── Time Capsule ─── */
+        .capsule {
+            display: flex; gap: 16px; flex-wrap: wrap;
+            justify-content: center;
+        }
+        .capsule-item {
+            background: var(--card); border: 1px solid var(--border);
+            border-radius: 12px; padding: 16px 20px;
+            text-align: center; flex: 1; min-width: 100px;
+        }
+        .capsule-item .num {
+            font-size: 1.5rem; font-weight: 700;
+            color: var(--accent);
+        }
+        .capsule-item .label {
+            font-size: .8rem; color: var(--muted);
+            margin-top: 2px;
+        }
+
+        /* ─── Responsive ─── */
+        @media (max-width: 520px) {
+            .hero { padding: 48px 0 32px; }
+            .hero h1 { font-size: 1.6rem; }
+            .post-item { flex-direction: column; align-items: flex-start; gap: 4px; }
+            .capsule-item { min-width: 80px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <!-- ═══ Hero ═══ -->
+        <header class="hero">
+            <div class="hero-avatar">💭</div>
+            <h1>Fegrous</h1>
+            <p class="subtitle">sky念 · 写代码，拍照片，偶尔发发呆</p>
+            <p class="bio">
+                一个喜欢折腾的开发者。关注 Web、AI 和有趣的小工具。
+                这里是我的数字小花园。
+            </p>
+            <div class="socials">
+                <a href="https://github.com/fegrous" target="_blank" rel="noopener">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                    GitHub
+                </a>
+                <a href="https://t.me/sky_nian" target="_blank" rel="noopener">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 000 12a12 12 0 0012 12 12 12 0 0012-12A12 12 0 0012 0a12 12 0 00-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 01.171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+                    Telegram
+                </a>
+                <a href="https://space.bilibili.com/" target="_blank" rel="noopener">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.813 4.653h.854c1.51.054 2.769.578 3.773 1.574 1.004.995 1.524 2.249 1.56 3.76v7.36c-.036 1.51-.556 2.769-1.56 3.773s-2.262 1.524-3.773 1.56H5.333c-1.51-.036-2.769-.556-3.773-1.56S.036 18.858 0 17.347v-7.36c.036-1.511.556-2.765 1.56-3.76 1.004-.996 2.262-1.52 3.773-1.574h.774l-1.174-1.12a1.234 1.234 0 01-.373-.906c0-.356.124-.658.373-.907l.027-.027c.267-.267.573-.4.92-.4.347 0 .653.133.92.4L9.187 4.44c.071.071.134.133.187.213h5.333c.071-.08.134-.142.187-.213l2.453-2.454c.267-.267.573-.4.92-.4.347 0 .662.133.92.4l.026.027c.267.267.4.568.4.907 0 .338-.133.644-.4.906zM7.36 10.453c-.32.32-.48.662-.48 1.027 0 .373.16.72.48 1.04.32.32.662.48 1.027.48.373 0 .72-.16 1.04-.48.32-.32.48-.667.48-1.04 0-.365-.16-.707-.48-1.027-.32-.32-.667-.48-1.04-.48-.365 0-.707.16-1.027.48zm8.32 0c-.32.32-.48.662-.48 1.027 0 .373.16.72.48 1.04.32.32.662.48 1.027.48.373 0 .72-.16 1.04-.48.32-.32.48-.667.48-1.04 0-.365-.16-.707-.48-1.027-.32-.32-.667-.48-1.04-.48-.365 0-.707.16-1.027.48zm-1.6 5.653c0-.391-.142-.72-.427-.987a1.34 1.34 0 00-.986-.426c-.391 0-.72.142-.987.426-.267.267-.4.596-.4.987 0 .356.133.662.4.907.267.284.596.426.987.426.373 0 .693-.142.96-.426.284-.267.426-.578.426-.907h.027zm-6.347.32c.409.249.88.373 1.413.373.534 0 1.013-.124 1.44-.373.427-.249.64-.556.64-.92 0-.356-.213-.662-.64-.933a2.755 2.755 0 00-1.44-.4c-.551 0-1.022.133-1.413.4-.391.267-.587.577-.587.933 0 .347.196.662.587.92z"/></svg>
+                    Bilibili
+                </a>
+                <a href="https://fegrous.top" target="_blank" rel="noopener">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+                    个人主页
+                </a>
+                <a href="https://github.com/fegrous/fegrous.top" target="_blank" rel="noopener">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                    Source
+                </a>
+            </div>
+        </header>
+
+        <!-- ═══ Time Capsule ═══ -->
+        <section class="section">
+            <h2 class="section-title">⏳ 时间胶囊</h2>
+            <div class="capsule" id="capsule">
+                <div class="capsule-item">
+                    <div class="num" id="dayOfYear">-</div>
+                    <div class="label">今年已过</div>
+                </div>
+                <div class="capsule-item">
+                    <div class="num" id="weekProgress">-</div>
+                    <div class="label">本周进度</div>
+                </div>
+                <div class="capsule-item">
+                    <div class="num" id="monthProgress">-</div>
+                    <div class="label">本月进度</div>
+                </div>
+                <div class="capsule-item">
+                    <div class="num" id="yearProgress">-</div>
+                    <div class="label">今年进度</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══ Projects ═══ -->
+        <section class="section">
+            <h2 class="section-title">📦 项目</h2>
+            <div class="projects">
+                <a class="project-card" href="https://github.com/fegrous/-yoloV10-Helmet-inspection-in-industrial-robot-workshop-" target="_blank" rel="noopener">
+                    <h3>🔧 工业机器人车间头盔检测</h3>
+                    <p>基于 YOLOv10 的安全帽佩戴检测系统，用于工业机器人作业场景的安全监控。</p>
+                    <div class="tags"><span>YOLOv10</span><span>Deep Learning</span><span>Python</span></div>
+                </a>
+                <a class="project-card" href="https://fegrous.top" target="_blank" rel="noopener">
+                    <h3>💭 个人主页</h3>
+                    <p>就是这个网站 —— 极简个人主页，记录生活与代码。</p>
+                    <div class="tags"><span>HTML</span><span>CSS</span><span>GitHub Pages</span></div>
+                </a>
+            </div>
+        </section>
+
+        <!-- ═══ Footer ═══ -->
+        <footer class="footer">
+            <p>© <span id="year"></span> Fegrous · Built with 💜</p>
+        </footer>
+
+    </div>
+
+    <script>
+        /* ─── Time Capsule ─── */
+        function updateTime() {
+            const now = new Date();
+            const start = new Date(now.getFullYear(), 0, 0);
+            const diff = now - start;
+            const oneDay = 86400000;
+            const dayOfYear = Math.floor(diff / oneDay);
+            const daysInYear = (now.getFullYear() % 4 === 0 && (now.getFullYear() % 100 !== 0 || now.getFullYear() % 400 === 0)) ? 366 : 365;
+
+            const weekStart = new Date(now);
+            weekStart.setDate(now.getDate() - now.getDay());
+            weekStart.setHours(0,0,0,0);
+            const weekEnd = new Date(weekStart);
+            weekEnd.setDate(weekStart.getDate() + 7);
+            const weekPassed = (now - weekStart) / oneDay;
+            const weekTotal = (weekEnd - weekStart) / oneDay;
+
+            const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
+            const monthEnd = new Date(now.getFullYear(), now.getMonth() + 1, 1);
+            const monthPassed = (now - monthStart) / oneDay;
+            const monthTotal = (monthEnd - monthStart) / oneDay;
+
+            document.getElementById('dayOfYear').textContent = dayOfYear;
+            document.getElementById('weekProgress').textContent = (weekPassed / weekTotal * 100).toFixed(0) + '%';
+            document.getElementById('monthProgress').textContent = (monthPassed / monthTotal * 100).toFixed(0) + '%';
+            document.getElementById('yearProgress').textContent = (dayOfYear / daysInYear * 100).toFixed(1) + '%';
+            document.getElementById('year').textContent = now.getFullYear();
+        }
+        updateTime();
+    </script>
+</body>
+</html>
